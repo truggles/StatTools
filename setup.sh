@@ -4,6 +4,8 @@ pushd $CMSSW_BASE/src
 
 cp UWAnalysis/StatTools/recipe/HTT.cpp CombineHarvester/CombineTools/bin/
 cp UWAnalysis/StatTools/recipe/HTT-tt.cpp CombineHarvester/CombineTools/bin/
+cp UWAnalysis/StatTools/recipe/HTT_all.cpp CombineHarvester/CombineTools/bin/
+cp UWAnalysis/StatTools/recipe/HTT-2Dtt.cpp CombineHarvester/CombineTools/bin/
 cp UWAnalysis/StatTools/recipe/XTT.cpp CombineHarvester/CombineTools/bin/
 cp UWAnalysis/StatTools/recipe/XTTBoost.cpp CombineHarvester/CombineTools/bin/
 cp UWAnalysis/StatTools/recipe/BuildFile.xml CombineHarvester/CombineTools/bin/

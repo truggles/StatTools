@@ -46,11 +46,8 @@ int main() {
 
   map<string, Categories> cats;
   cats["tt"] = {
-      {0, "tt_0jet"},
-      {1, "tt_1jet_low"},
-      {2, "tt_1jet_high"},
-      {3, "tt_vbf_low"},
-      {4, "tt_vbf_high"},
+      {0, "tt_1jet2D"},
+      {1, "tt_2jet2D"},
       };
 
   //! [part2]
@@ -107,17 +104,13 @@ int main() {
   cb.cp().process({"QCD"})
       .AddSyst(cb, "CMS_QCD_Syst_$BIN_$ERA", "lnN", SystMap<bin_id>::init
       // QCD extends to Loose
-      ({0}, 1.2 ) //0jet
-      ({1}, 1.3 ) //1jet low
-      ({2}, 2.0 ) //1jet high
-      ({3}, 1.4 ) //vbf low
-      ({4}, 3.0 ) //vbf high
-      // QCD Extends to Medium
-      //({0}, 1.1 ) //0jet
-      //({1}, 1.5 ) //1jet low
-      //({2}, 1.3 ) //1jet high
-      //({3}, 1.3 ) //vbf low
-      //({4}, 1.75) //vbf high
+      ({0}, 1.5 ) //1jet2D
+      ({1}, 2.0 ) //2jet2D
+      //({0}, 1.2 ) //0jet
+      //({1}, 1.3 ) //1jet low
+      //({2}, 2.0 ) //1jet high
+      //({3}, 1.4 ) //vbf low
+      //({4}, 3.0 ) //vbf high
       );
 
   //TT_CMS_htt_ttbarShape_13TeVUp
@@ -192,11 +185,11 @@ int main() {
   ch::CardWriter writer("$TAG/$MASS/$ANALYSIS_$CHANNEL_$BINID_$ERA.txt",
                         "$TAG/common/$ANALYSIS_$CHANNEL.input_$ERA.root");
   // writer.SetVerbosity(1);
-  writer.WriteCards("output/htt_cards/cmb", cb);
+  writer.WriteCards("output2d/htt_cards/cmb", cb);
   for (auto chn : cb.channel_set()) {
-    writer.WriteCards("output/htt_cards/" + chn, cb.cp().channel({chn}));
+    writer.WriteCards("output2d/htt_cards/" + chn, cb.cp().channel({chn}));
   }
-  TFile output("output/htt_cards/htt_mvis.input.root", "RECREATE");
+  TFile output("output2d/htt_cards/htt_mvis.input.root", "RECREATE");
 
 
 }
