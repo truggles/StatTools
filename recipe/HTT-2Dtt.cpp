@@ -46,8 +46,9 @@ int main() {
 
   map<string, Categories> cats;
   cats["tt"] = {
-      {0, "tt_1jet2D"},
-      {1, "tt_2jet2D"},
+      {0, "tt_0jet"},
+      {1, "tt_1jet2D"},
+      {2, "tt_2jet2D"},
       };
 
   //! [part2]
@@ -104,8 +105,9 @@ int main() {
   cb.cp().process({"QCD"})
       .AddSyst(cb, "CMS_QCD_Syst_$BIN_$ERA", "lnN", SystMap<bin_id>::init
       // QCD extends to Loose
-      ({0}, 1.5 ) //1jet2D
-      ({1}, 2.0 ) //2jet2D
+      ({0}, 1.04 ) // 0jet = 1D 0jet
+      ({1}, 1.13 ) //1jet2D - copied from 1D 1jet low
+      ({2}, 1.24 ) //2jet2D - copied from 1D vbf low
       //({0}, 1.2 ) //0jet
       //({1}, 1.3 ) //1jet low
       //({2}, 2.0 ) //1jet high

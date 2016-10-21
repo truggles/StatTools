@@ -1,39 +1,43 @@
 PT=5040
 ISO=Tight
-BIN=2D
-DATE=Oct12
+BIN=Final
+DATE=Oct21
 
 
-
-#rm -r output2d/htt_cards/
-#for BIN in 2D; do
-#    cp data/sm_higgs_tautau/datacards/htt_tt.inputs-sm-13TeV_svFitMass-5040-Tight-ICHEP-${BIN}.root data/sm_higgs_tautau/datacards/htt_tt.inputs-sm-13TeV.root
-#    HTT-2Dtt
-#    pushd output2d/htt_cards
-#    combineTool.py -M T2W -i tt/* -o workspace.root --parallel 4
-#    combineTool.py -M Asymptotic -d */*/workspace.root --there -t -1 -n .limit --parallel 4
-#    combineTool.py -M CollectLimits */*/higgsCombine.limit.Asymptotic.*.root --use-dirs -o limits.json
-#    cp limits_tt.json ../ptIso/${DATE}${BIN}Cmb.json
-#    for CAT in 0 1; do
-#        combineTool.py -M T2W -i tt/*/htt_tt_${CAT}_13TeV.txt -o workspace${CAT}.root --parallel 4
-#        combineTool.py -M Asymptotic -d */*/workspace${CAT}.root --there -t -1 -n .limit${CAT} --parallel 4
-#        combineTool.py -M CollectLimits */*/higgsCombine.limit${CAT}.Asymptotic.*.root --use-dirs -o limits.json
-#        cp limits_tt.json ../ptIso/${DATE}${BIN}${CAT}.json
-#    done
-#    popd
-#done
+rm -r output2d/htt_cards/
+##for BIN in 2D 2DB 2DC; do
+for BIN in Oct21Final; do
+    cp data/sm_higgs_tautau/datacards/htt_tt.inputs-sm-13TeV_svFitMass2D-5040-Tight-ICHEP-${BIN}.root data/sm_higgs_tautau/datacards/htt_tt.inputs-sm-13TeV.root
+    HTT-2Dtt
+    pushd output2d/htt_cards
+    combineTool.py -M T2W -i tt/* -o workspace.root --parallel 4
+    combineTool.py -M Asymptotic -d */*/workspace.root --there -t -1 -n .limit --parallel 4
+    combineTool.py -M CollectLimits */*/higgsCombine.limit.Asymptotic.*.root --use-dirs -o limits.json
+    cp limits_tt.json ../ptIso/${DATE}${BIN}Cmb.json
+    for CAT in 0 1 2; do
+        combineTool.py -M T2W -i tt/*/htt_tt_${CAT}_13TeV.txt -o workspace${CAT}.root --parallel 4
+        combineTool.py -M Asymptotic -d */*/workspace${CAT}.root --there -t -1 -n .limit${CAT} --parallel 4
+        combineTool.py -M CollectLimits */*/higgsCombine.limit${CAT}.Asymptotic.*.root --use-dirs -o limits.json
+        cp limits_tt.json ../ptIso/${DATE}${BIN}${CAT}.json
+    done
+    popd
+done
 
 echo "HERE WE ARE"
 
 mkdir -p output2d/ptIso
 pushd output2d/ptIso
-for BIN in 2D; do    
-    plotLimits.py ${DATE}${BIN}{0,1,Cmb}.json:exp0 --auto-style # will plot the expected limit comparisons of the channels
-    cp limit.pdf limit_All_${DATE}${BIN}.pdf
-    for CAT in 0 1; do
-       plotLimits.py {Oct11,Oct12}${BIN}${CAT}.json:exp0 --auto-style # will plot the expected limit comparisons of the channels
-       cp limit.pdf limit_Oct11VsOct12Comp${BIN}${CAT}.pdf
-    done
+#plotLimits.py Oct{122D,182DD}0.json:exp0 --auto-style
+#cp limit.pdf limit_${DATE}_HiggsPtVsMjjUnroll_Comp${BIN}0.pdf
+for BIN in Oct21Final; do    
+    plotLimits.py ${DATE}${BIN}{0,1,2,Cmb}.json:exp0 --auto-style # will plot the expected limit comparisons of the channels
+    #plotLimits.py ${DATE}${BIN}{1,Cmb}.json:exp0 --auto-style # will plot the expected limit comparisons of the channels
+    cp limit.pdf limit_2D_All_${DATE}${BIN}.pdf
+    #for CAT in 0 1; do
+    #for CAT in 1; do
+    #   plotLimits.py ${DATE}{2D,2DB,2DC,2DE}${CAT}.json:exp0 --auto-style # will plot the expected limit comparisons of the channels
+    #   cp limit.pdf limit_all4_${DATE}_HiggsPtVsMjjUnroll_Comp${BIN}${CAT}.pdf
+    #done
     rm limit.pdf
 done
 popd
