@@ -107,11 +107,11 @@ int main() {
   cb.cp().process({"QCD"})
       .AddSyst(cb, "CMS_QCD_Syst_$BIN_$ERA", "lnN", SystMap<bin_id>::init
       // QCD extends to Loose
-      ({0}, 1.2 ) //0jet
-      ({1}, 1.3 ) //1jet low
-      ({2}, 2.0 ) //1jet high
-      ({3}, 1.4 ) //vbf low
-      ({4}, 3.0 ) //vbf high
+      ({0}, 1.04 ) //0jet
+      ({1}, 1.13 ) //1jet low
+      ({2}, 1.49 ) //1jet high
+      ({3}, 1.34 ) //vbf low
+      ({4}, 1.78 ) //vbf high
       // QCD Extends to Medium
       //({0}, 1.1 ) //0jet
       //({1}, 1.5 ) //1jet low
@@ -167,6 +167,7 @@ int main() {
   auto bbb = ch::BinByBinFactory()
       .SetAddThreshold(0.1)
       .SetMergeThreshold(0.3)
+      //.SetMergeThreshold(0.0)
       .SetFixNorm(true);
       //.SetFixNorm(false);
   bbb.MergeBinErrors(cb.cp().backgrounds());
